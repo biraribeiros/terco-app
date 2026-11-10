@@ -1,0 +1,109 @@
+/* Tokens de DESIGN.md. Qualquer valor visual deve vir daqui. */
+:root {
+  /* Adulto */
+  --color-blue-900: #0b2a55;
+  --color-blue-600: #1f5fa8;
+  --color-sky-200: #9cc8f0;
+  --color-gold-300: #ffd166;
+  --color-white-50: #f4f9ff;
+  --color-ink-700: #16365f;
+  --color-line-200: #c9dcf2;
+  --color-danger-700: #9b1c1c;
+
+  /* Kids */
+  --kids-ink-900: #1b1b3a;
+  --kids-cream-50: #fff6e0;
+  --kids-sun-400: #ffd23f;
+  --kids-coral-500: #e8553d;
+  --kids-mint-300: #7fd8c8;
+  --kids-mint-100: #b8f0e4;
+  --kids-pink-200: #ffb3c7;
+  --kids-violet-500: #6a4cff;
+  --kids-white: #ffffff;
+
+  /* Texto (escala base 18 px, multiplicada por --text-scale) */
+  --text-scale: 1;
+  --text-caption: calc(18px * var(--text-scale));
+  --text-body: calc(20px * var(--text-scale));
+  --text-lead: calc(22px * var(--text-scale));
+  --text-button: calc(22px * var(--text-scale));
+  --text-title-sm: calc(28px * var(--text-scale));
+  --text-title: calc(36px * var(--text-scale));
+  --text-display: calc(48px * var(--text-scale));
+
+  /* Espaçamento */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Alvos e raios */
+  --touch-min: 56px;
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+  --radius-kids: 36px;
+
+  /* Sombras */
+  --shadow-1: 0 2px 8px rgba(11, 42, 85, 0.1);
+  --shadow-2: 0 8px 24px rgba(11, 42, 85, 0.16);
+  --shadow-glow-gold: 0 0 24px rgba(255, 209, 102, 0.55);
+  --shadow-kids: 0 6px 0 rgba(27, 27, 58, 0.25);
+
+  /* Movimento */
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-screen: 350ms;
+  --duration-slow: 450ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Tema padrão (adulto) */
+  color-scheme: light;
+  --bg: var(--color-white-50);
+  --fg: var(--color-blue-900);
+  --accent: var(--color-blue-600);
+}
+
+:root[data-theme='kids'] {
+  --bg: var(--kids-cream-50);
+  --fg: var(--kids-ink-900);
+  --accent: var(--kids-violet-500);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-screen: 200ms;
+    --duration-slow: 200ms;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: var(--text-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 600;
+}
