@@ -8,4 +8,4 @@ Aplicativo mobile do terço católico guiado por voz, para iOS e Android (Capaci
 
 ## Status
 
-Etapa 0 (direção de arte, DESIGN.md) ainda não iniciada.
+Etapa 0 (DESIGN.md) concluída. Etapa 1 (stack) concluída: React + Vite + TypeScript + Capacitor, build passando. Próxima: Etapa 2 (vozes ElevenLabs).
