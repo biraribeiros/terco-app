@@ -1,0 +1,62 @@
+{
+  "_nota": "Roteiro de áudio do Terço. Textos a revisar antes da geração. Vozes escolhidas: feminina = Keren, masculina = Carlos, kids = Piku. Os textos das orações seguem o texto litúrgico em português, sem alterações.",
+  "boas-vindas": {
+    "feminina": "Seja bem-vindo. Respire fundo, acalme o coração. Vamos rezar o terço juntos?",
+    "masculina": "Seja bem-vindo. Respire fundo, acalme o coração. Vamos rezar o terço juntos?",
+    "kids": "Oi, amiguinho! Que bom ver você aqui. Vamos rezar o terço juntos?"
+  },
+  "oracoes": {
+    "01-sinal-da-cruz": "Em nome do Pai, do Filho e do Espírito Santo. Amém.",
+    "02-credo": "Creio em Deus Pai todo-poderoso, criador do céu e da terra. E em Jesus Cristo, seu único Filho, nosso Senhor, que foi concebido pelo poder do Espírito Santo, nasceu da Virgem Maria, padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado, desceu à mansão dos mortos, ressuscitou ao terceiro dia, subiu aos céus, está sentado à direita de Deus Pai todo-poderoso, donde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo, na santa Igreja Católica, na comunhão dos santos, na remissão dos pecados, na ressurreição da carne e na vida eterna. Amém.",
+    "03-pai-nosso": "Pai nosso, que estais nos céus, santificado seja o vosso nome; venha a nós o vosso reino; seja feita a vossa vontade, assim na terra como no céu. O pão nosso de cada dia nos dai hoje; perdoai-nos as nossas ofensas, assim como nós perdoamos a quem nos tem ofendido; e não nos deixeis cair em tentação, mas livrai-nos do mal. Amém.",
+    "04-ave-maria": "Ave Maria, cheia de graça, o Senhor é convosco. Bendita sois vós entre as mulheres, e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora da nossa morte. Amém.",
+    "05-gloria": "Glória ao Pai, ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre, pelos séculos dos séculos. Amém.",
+    "06-o-meu-jesus": "Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai para o céu todas as almas, especialmente as mais necessitadas da vossa misericórdia. Amém.",
+    "07-salve-rainha": "Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos, os degredados filhos de Eva; a vós suspiramos, gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei; e depois deste desterro, mostrai-nos Jesus, bendito fruto do vosso ventre. Ó clemente, ó piedosa, ó doce sempre Virgem Maria. Rogai por nós, Santa Mãe de Deus, para que sejamos dignos das promessas de Cristo. Amém.",
+    "08-terco-concluido": "Terço concluído. Que a paz de Deus esteja com você."
+  },
+  "misterios": {
+    "gozosos-1-anunciacao": "Primeiro mistério gozoso: A Anunciação.",
+    "gozosos-2-visitacao": "Segundo mistério gozoso: A Visitação.",
+    "gozosos-3-nascimento": "Terceiro mistério gozoso: O Nascimento de Jesus.",
+    "gozosos-4-apresentacao": "Quarto mistério gozoso: A Apresentação no Templo.",
+    "gozosos-5-perda-e-encontro": "Quinto mistério gozoso: A Perda e o Encontro do Menino Jesus no Templo.",
+    "luminosos-1-batismo": "Primeiro mistério luminoso: O Batismo de Jesus no Jordão.",
+    "luminosos-2-cana": "Segundo mistério luminoso: As Bodas de Caná.",
+    "luminosos-3-reino": "Terceiro mistério luminoso: O Anúncio do Reino de Deus.",
+    "luminosos-4-transfiguracao": "Quarto mistério luminoso: A Transfiguração.",
+    "luminosos-5-eucaristia": "Quinto mistério luminoso: A Instituição da Eucaristia.",
+    "dolorosos-1-horto": "Primeiro mistério doloroso: A Agonia no Horto.",
+    "dolorosos-2-flagelacao": "Segundo mistério doloroso: A Flagelação.",
+    "dolorosos-3-coroacao": "Terceiro mistério doloroso: A Coroação de Espinhos.",
+    "dolorosos-4-cruz": "Quarto mistério doloroso: Jesus carrega a Cruz.",
+    "dolorosos-5-crucificacao": "Quinto mistério doloroso: A Crucificação e a Morte de Jesus.",
+    "gloriosos-1-ressurreicao": "Primeiro mistério glorioso: A Ressurreição.",
+    "gloriosos-2-ascensao": "Segundo mistério glorioso: A Ascensão de Jesus ao céu.",
+    "gloriosos-3-pentecostes": "Terceiro mistério glorioso: A Vinda do Espírito Santo.",
+    "gloriosos-4-assuncao": "Quarto mistério glorioso: A Assunção de Maria.",
+    "gloriosos-5-coroacao": "Quinto mistério glorioso: A Coroação de Maria."
+  },
+  "misterios-explicados": {
+    "gozosos-1-anunciacao": "Anunciação: um anjo contou a Maria que ela seria a mãe de Jesus.",
+    "gozosos-2-visitacao": "Visitação: Maria foi ajudar a prima Isabel, que também esperava um bebê.",
+    "gozosos-3-nascimento": "Nascimento: Jesus nasceu num estábulo, em Belém, e foi deitado numa manjedoura.",
+    "gozosos-4-apresentacao": "Apresentação: Maria e José levaram Jesus ao templo para oferecê-lo a Deus.",
+    "gozosos-5-perda-e-encontro": "Perda e encontro: aos 12 anos, Jesus ficou no templo ensinando, e Maria e José o acharam depois de procurar muito.",
+    "luminosos-1-batismo": "Batismo: João batizou Jesus no rio Jordão, e o Espírito Santo desceu sobre ele.",
+    "luminosos-2-cana": "Caná: Jesus transformou água em vinho numa festa de casamento.",
+    "luminosos-3-reino": "Anúncio do Reino: Jesus ensinou que Deus ama todas as pessoas e pediu que mudemos o coração.",
+    "luminosos-4-transfiguracao": "Transfiguração: no alto de um monte, Jesus apareceu brilhando, com Moisés e Elias.",
+    "luminosos-5-eucaristia": "Eucaristia: na Última Ceia, Jesus deu o pão e o vinho como seu corpo e seu sangue.",
+    "dolorosos-1-horto": "Horto: Jesus rezou com muita tristeza no Jardim das Oliveiras.",
+    "dolorosos-2-flagelacao": "Flagelação: Jesus foi açoitado pelos soldados, mas aceitou sofrer por amor a nós.",
+    "dolorosos-3-coroacao": "Coroação de espinhos: os soldados colocaram uma coroa de espinhos na cabeça de Jesus.",
+    "dolorosos-4-cruz": "Cruz: Jesus carregou a cruz pesada até o alto do monte Calvário.",
+    "dolorosos-5-crucificacao": "Crucificação: Jesus morreu na cruz por amor a todas as pessoas.",
+    "gloriosos-1-ressurreicao": "Ressurreição: Jesus venceu a morte e ressuscitou no terceiro dia.",
+    "gloriosos-2-ascensao": "Ascensão: Jesus subiu ao céu, para junto de Deus Pai.",
+    "gloriosos-3-pentecostes": "Pentecostes: o Espírito Santo desceu sobre Maria e os apóstolos, que estavam reunidos em oração.",
+    "gloriosos-4-assuncao": "Assunção: Maria foi levada ao céu, com corpo e alma.",
+    "gloriosos-5-coroacao": "Coroação de Maria: Maria foi coroada Rainha do céu e da terra."
+  }
+}
