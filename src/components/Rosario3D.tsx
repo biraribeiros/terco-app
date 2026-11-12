@@ -36,14 +36,14 @@ function EsferaConta({
     const mesh = ref.current;
     if (!mesh) return;
     const material = mesh.material as THREE.MeshPhysicalMaterial;
-    material.emissiveIntensity = pulsando ? 0.6 + 0.4 * Math.sin(clock.elapsedTime * 4) : acesa ? 0.35 : 0;
+    material.emissiveIntensity = pulsando ? 0.8 + 0.5 * Math.sin(clock.elapsedTime * 4) : acesa ? 0.6 : 0;
   });
 
   return (
     <mesh ref={ref} position={[conta.x, conta.y, conta.z]} rotation={[0, 0, angulo]} scale={escala}>
       <sphereGeometry args={[raio, 24, 24]} />
       <meshPhysicalMaterial
-        color={c.cor}
+        color={acesa || pulsando ? COR_REZADA : c.cor}
         emissive={COR_REZADA}
         emissiveIntensity={0}
         metalness={c.metal}
@@ -128,7 +128,7 @@ function Cruz({ estilo }: { estilo: Estilo }) {
   );
 }
 
-export function Rosario3D({ acesas, atual, foco, girando = false, estilo = 'madeira' }: RosarioProps) {
+export function Rosario3D({ acesas, atual, foco, girando = false, estilo = 'branco' }: RosarioProps) {
   const lista = useMemo(() => contas(), []);
   const linha = useMemo(() => cordao(), []);
   const conjuntoAcesas = useMemo(() => new Set(acesas), [acesas]);

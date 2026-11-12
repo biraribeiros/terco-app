@@ -30,12 +30,11 @@ export function Tipo({ onEscolher, onVoltar }: Props) {
     <>
       <h1 className="titulo">Como você quer rezar?</h1>
       {OPCOES.map((op) => (
-        <section key={op.tipo} className="vidro cartao-tipo" aria-label={op.titulo}>
-          <div className="cartao-tipo-cabeca">
-            <div>
-              <h2 className="titulo-cartao">{op.titulo}</h2>
-              <p className="texto-pequeno">{op.resumo}</p>
-            </div>
+        <section key={op.tipo} className="cartao-tipo" aria-label={op.titulo}>
+          <div className="tipo-linha">
+            <button type="button" className="btn btn-primario" onClick={() => onEscolher(op.tipo)}>
+              Rezar {op.tipo === 'rosario' ? 'Rosário' : 'Terço'}
+            </button>
             <button
               type="button"
               className="btn-icone"
@@ -46,10 +45,11 @@ export function Tipo({ onEscolher, onVoltar }: Props) {
               i
             </button>
           </div>
-          {aberto === op.tipo && <p className="texto-corpo explicacao">{op.explicacao}</p>}
-          <button type="button" className="btn btn-primario" onClick={() => onEscolher(op.tipo)}>
-            Rezar {op.tipo === 'rosario' ? 'o Rosário completo' : 'o Terço'}
-          </button>
+          {aberto === op.tipo && (
+            <p className="texto-corpo explicacao">
+              {op.resumo}. {op.explicacao}
+            </p>
+          )}
         </section>
       ))}
       <button type="button" className="btn btn-secundario" onClick={onVoltar}>

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Legenda } from '../components/Legenda';
 import { Terco } from '../components/Terco';
+import { Velocidade } from '../components/Velocidade';
 import type { Misterio } from '../data/roteiro';
 import { manterTela, vibrarLeve } from '../lib/nativo';
 import { narrador, urlAudio } from '../lib/narrador';
@@ -15,6 +16,8 @@ interface Props {
   passoInicial: number;
   modoLeve: boolean;
   estilo: EstiloTerco;
+  velocidade: number;
+  onVelocidade: (velocidade: number) => void;
   onProgresso: (passo: number) => void;
   onConcluir: () => void;
   onSair: () => void;
@@ -22,13 +25,13 @@ interface Props {
 
 /** Textos longos (Credo, Salve Rainha) usam letra menor, para a tela caber sem rolagem. */
 function tamanhoFonte(caracteres: number): number {
-  if (caracteres <= 90) return 22;
-  if (caracteres <= 230) return 19;
-  if (caracteres <= 400) return 16;
-  return 14;
+  if (caracteres <= 90) return 20;
+  if (caracteres <= 230) return 17;
+  if (caracteres <= 400) return 15;
+  return 13;
 }
 
-export function Oracao({ voz, misterios, intencao, passoInicial, modoLeve, estilo, onProgresso, onConcluir, onSair }: Props) {
+export function Oracao({ voz, misterios, intencao, passoInicial, modoLeve, estilo, velocidade, onVelocidade, onProgresso, onConcluir, onSair }: Props) {
   const semVoz = voz === 'sem-voz';
   const passos = useMemo(() => montarPassos(voz, misterios), [voz, misterios]);
   const ultimo = passos.length - 1;
@@ -36,6 +39,11 @@ export function Oracao({ voz, misterios, intencao, passoInicial, modoLeve, estil
   const [pausado, setPausado] = useState(false);
 
   // Refs para que os efeitos de áudio não reiniciem quando o pai re-renderiza.
+  // A velocidade escolhida vale para todos os áudios da oração.
+  useEffect(() => {
+    narrador.definirVelocidade(velocidade);
+  }, [velocidade]);
+
   const pausadoRef = useRef(false);
   const concluirRef = useRef(onConcluir);
   const progressoRef = useRef(onProgresso);
@@ -118,7 +126,15 @@ export function Oracao({ voz, misterios, intencao, passoInicial, modoLeve, estil
 
       {intencao && <p className="texto-pequeno intencao-linha">Intenção: {intencao}</p>}
 
-      <Legenda className="oracao-texto" texto={passo.texto} acompanhar={!semVoz} style={{ fontSize: `calc(${tamanhoFonte(passo.texto.length)}px * var(--text-scale))` }} />
+      <Legenda
+        className="oracao-texto"
+        texto={passo.texto}
+        acompanhar={!semVoz}
+        paginar={!semVoz}
+        style={{ fontSize: `calc(${semVoz ? tamanhoFonte(passo.texto.length) : 24}px * var(--text-scale))` }}
+      />
+
+      {!semVoz && <Velocidade valor={velocidade} onEscolher={onVelocidade} />}
 
       <div className="controles" data-sem-voz={semVoz}>
         <button type="button" className="btn btn-secundario" onClick={voltar} disabled={idx === 0}>

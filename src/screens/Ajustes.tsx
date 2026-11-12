@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Abas } from '../components/Abas';
 import { Terco } from '../components/Terco';
+import { Velocidade } from '../components/Velocidade';
 import { ESTILOS, ORDEM_ESTILOS } from '../lib/estilos';
 import { agendarLembrete } from '../lib/nativo';
 import type { Alerta, Prefs, Voz } from '../lib/prefs';
@@ -72,6 +73,8 @@ export function Ajustes({ prefs, onAlterar, onLembrete }: Props) {
       {secao === 'voz' && (
         <>
           <EscolhaVoz atual={prefs.voz} onEscolher={trocarVoz} />
+          <p className="texto-pequeno">Velocidade da voz</p>
+          <Velocidade valor={prefs.velocidade} onEscolher={(velocidade) => onAlterar({ velocidade })} />
           <label className="linha-ajuste">
             <span>Música de abertura</span>
             <input

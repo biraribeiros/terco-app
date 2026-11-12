@@ -7,10 +7,19 @@ export function urlAudio(rel: string): string {
 export class Narrador {
   private audio: HTMLAudioElement | null = null;
   private ultimo: { src: string; onFim: () => void } | null = null;
+  private velocidade = 1;
+
+  /** Velocidade da voz, valendo para o áudio atual e os próximos. A voz mantém o tom. */
+  definirVelocidade(velocidade: number): void {
+    this.velocidade = velocidade;
+    if (this.audio) this.audio.playbackRate = velocidade;
+  }
 
   tocar(src: string, onFim: () => void): void {
     this.parar();
     const audio = new Audio(src);
+    audio.preservesPitch = true;
+    audio.playbackRate = this.velocidade;
     audio.onended = () => onFim();
     // Se o arquivo faltar, o passo fica parado e o usuário avança tocando no botão.
     audio.onerror = () => console.warn('Áudio não encontrado:', src);

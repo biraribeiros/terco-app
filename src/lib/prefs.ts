@@ -12,12 +12,23 @@ export type Alerta = 'som' | 'vibrar' | 'silencioso';
 export type Tipo = 'terco' | 'rosario';
 
 export interface Progresso {
+  /** A sessão faz parte de uma novena. */
+  novena: boolean;
   /** Chaves dos mistérios da sessão, na ordem em que são rezados. */
   chaves: string[];
   tipo: Tipo;
   intencao: string;
   passo: number;
 }
+
+/** Novena em andamento: nove dias de oração pela mesma intenção. */
+export interface Novena {
+  intencao: string;
+  /** Dias (AAAA-MM-DD) em que a novena foi rezada. */
+  dias: string[];
+}
+
+export const DIAS_NOVENA = 9;
 
 export interface Lembrete {
   ativo: boolean;
@@ -44,6 +55,8 @@ export interface Prefs {
   voz: Voz;
   musica: boolean;
   estiloTerco: EstiloTerco;
+  /** Velocidade da voz: 0,5, 1, 2 ou 3. */
+  velocidade: number;
   tamanhoTexto: number;
   reduzirMovimento: boolean;
   modoLeve: boolean;
@@ -53,6 +66,7 @@ export interface Prefs {
   historico: Registro[];
   ultimoTrecho: number;
   progresso: Progresso | null;
+  novena: Novena | null;
 }
 
 export const PREFS_PADRAO: Prefs = {
@@ -60,7 +74,8 @@ export const PREFS_PADRAO: Prefs = {
   nome: '',
   voz: 'masculina',
   musica: true,
-  estiloTerco: 'madeira',
+  estiloTerco: 'branco',
+  velocidade: 1,
   tamanhoTexto: 1,
   reduzirMovimento: false,
   modoLeve: false,
@@ -70,6 +85,7 @@ export const PREFS_PADRAO: Prefs = {
   historico: [],
   ultimoTrecho: -1,
   progresso: null,
+  novena: null,
 };
 
 const CHAVE = 'prefs';
@@ -80,6 +96,7 @@ function migrarProgresso(bruto: unknown): Progresso | null {
   const p = bruto as Record<string, unknown>;
   if (Array.isArray(p.chaves)) {
     return {
+      novena: p.novena === true,
       chaves: p.chaves.filter((c): c is string => typeof c === 'string'),
       tipo: p.tipo === 'rosario' ? 'rosario' : 'terco',
       intencao: typeof p.intencao === 'string' ? p.intencao : '',
@@ -97,7 +114,9 @@ export async function carregarPrefs(): Promise<Prefs> {
     const salvo = JSON.parse(value) as Partial<Prefs> & { progresso?: unknown };
     // Versões de teste anteriores não tinham nome: pedem nome e voz uma vez.
     const onboardingFeito = 'nome' in salvo ? Boolean(salvo.onboardingFeito) : false;
-    return { ...PREFS_PADRAO, ...salvo, onboardingFeito, progresso: migrarProgresso(salvo.progresso) };
+    // 'madeira' era o padrão antes do estilo Branco existir: quem não escolheu passa para o novo padrão.
+    const estiloTerco = salvo.estiloTerco && salvo.estiloTerco !== 'madeira' ? salvo.estiloTerco : PREFS_PADRAO.estiloTerco;
+    return { ...PREFS_PADRAO, ...salvo, estiloTerco, onboardingFeito, progresso: migrarProgresso(salvo.progresso) };
   } catch {
     return PREFS_PADRAO;
   }

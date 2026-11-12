@@ -23,11 +23,26 @@ export function EscolhaVoz({ atual, onEscolher }: { atual: Voz; onEscolher: (voz
           </button>
           <button
             type="button"
-            className="btn btn-secundario btn-compacto"
+            className="btn-icone btn-alto-falante"
             aria-label={`Ouvir amostra da voz ${op.titulo}`}
             onClick={() => narrador.tocar(urlAudio(`${op.voz}/boas-vindas.mp3`), () => {})}
           >
-            Ouvir
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z" />
+              <path d="M15.5 9a4 4 0 0 1 0 6" />
+              <path d="M18 6.5a7.5 7.5 0 0 1 0 11" />
+            </svg>
           </button>
         </div>
       ))}

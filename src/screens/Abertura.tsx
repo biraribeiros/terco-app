@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
+import logoBranco from '../assets/rosario-guiado_branco.svg';
+import logoPreto from '../assets/rosario-guiado_preto.svg';
 import { Terco } from '../components/Terco';
 import type { EstiloTerco } from '../lib/estilos';
-import { fraseDoDia } from '../lib/frases';
+import { versiculoDoDia } from '../lib/frases';
 import { narrador } from '../lib/narrador';
 import type { Voz } from '../lib/prefs';
 import { EscolhaVoz } from './Voz';
@@ -17,7 +19,7 @@ interface Props {
 }
 
 export function Abertura({ nomeSalvo, vozSalva, modoLeve, estilo, primeiroAcesso, onEntrar }: Props) {
-  const frase = useMemo(() => fraseDoDia(), []);
+  const versiculo = useMemo(() => versiculoDoDia(), []);
   const [etapa, setEtapa] = useState<'frase' | 'perfil'>('frase');
   const [nome, setNome] = useState(nomeSalvo);
   const [voz, setVoz] = useState<Voz>(vozSalva);
@@ -69,18 +71,28 @@ export function Abertura({ nomeSalvo, vozSalva, modoLeve, estilo, primeiroAcesso
 
   return (
     <div className="abertura abertura-capa">
+      <div className="arcos" aria-hidden="true">
+        <span className="arco-azul" />
+        <span className="arco-dourado" />
+      </div>
       <div className="abertura-topo">
-        <div className="abertura-cena">
-          <Terco acesas={[]} atual={-1} foco={null} girando modoLeve={modoLeve} estilo={estilo} />
-        </div>
-        <h1 className="titulo-display">Rosário Guiado</h1>
+        <h1 className="logo">
+          <img className="logo-branco" src={logoBranco} alt="Rosário Guiado" />
+          <img className="logo-preto" src={logoPreto} alt="" aria-hidden="true" />
+        </h1>
         <p className="assinatura">Reze • Medite • Contemple</p>
       </div>
 
-      <figure className="vidro frase-dia">
-        <figcaption className="texto-pequeno">Frase do dia</figcaption>
-        <blockquote>{frase}</blockquote>
-      </figure>
+      <div className="abertura-meio">
+        <div className="abertura-cena">
+          <Terco acesas={[]} atual={-1} foco={null} girando modoLeve={modoLeve} estilo={estilo} />
+        </div>
+        <figure className="frase-dia">
+          <figcaption className="texto-pequeno">Palavra do dia</figcaption>
+          <blockquote>“{versiculo.texto}”</blockquote>
+          <p className="referencia">{versiculo.referencia}</p>
+        </figure>
+      </div>
 
       <button
         type="button"

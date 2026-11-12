@@ -4,12 +4,48 @@
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  isolation: isolate;
   background: var(--app-bg);
-  background-attachment: fixed;
   color: var(--fg);
 }
 
+/* Arcos de luz: só na abertura. Das outras telas em diante, o fundo é só o degradê. */
+.arcos {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.arco-azul,
+.arco-dourado {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.arco-azul {
+  width: 150vmin;
+  height: 150vmin;
+  top: -92vmin;
+  left: -72vmin;
+  border: 2px solid var(--arco-1);
+  box-shadow: 0 0 46px var(--arco-1), inset 0 0 70px rgba(110, 200, 255, 0.16);
+}
+
+.arco-dourado {
+  width: 120vmin;
+  height: 120vmin;
+  right: -78vmin;
+  bottom: -64vmin;
+  border: 2px solid var(--arco-2);
+  box-shadow: 0 0 46px var(--arco-2), inset 0 0 60px rgba(255, 170, 90, 0.14);
+}
+
 .tela {
+  position: relative;
+  isolation: isolate;
   flex: 1;
   width: 100%;
   max-width: 560px;
@@ -26,7 +62,7 @@
   background: var(--glass-bg);
   border: 1px solid var(--glass-borda);
   border-radius: var(--radius-lg);
-  box-shadow: var(--glass-sombra), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  box-shadow: var(--glass-sombra), var(--bisel);
   -webkit-backdrop-filter: blur(var(--glass-blur));
   backdrop-filter: blur(var(--glass-blur));
   color: var(--fg);
@@ -112,6 +148,7 @@
   font-size: var(--text-button);
   font-weight: 600;
   cursor: pointer;
+  box-shadow: var(--bisel);
   transition: transform var(--duration-fast) var(--ease-standard);
 }
 
@@ -125,13 +162,18 @@
 }
 
 .btn-primario {
-  background: var(--accent);
-  color: var(--on-accent);
-  box-shadow: 0 6px 20px rgba(255, 209, 102, 0.28);
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.42), rgba(255, 150, 60, 0.2));
+  color: var(--fg);
+  border: 1.5px solid var(--accent);
+  box-shadow: 0 0 22px rgba(255, 190, 90, 0.35), var(--bisel);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
 }
 
 :root[data-theme='kids'] .btn-primario {
-  box-shadow: var(--shadow-kids);
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: var(--shadow-kids), var(--bisel);
 }
 
 .btn-secundario {
@@ -160,6 +202,7 @@
   border: 1px solid var(--glass-borda);
   background: var(--glass-bg);
   color: var(--accent);
+  box-shadow: var(--bisel);
   font: inherit;
   font-weight: 700;
   font-style: italic;
@@ -239,6 +282,7 @@ textarea.entrada {
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+  box-shadow: var(--bisel);
 }
 
 .chip-largo {
@@ -309,17 +353,13 @@ textarea.entrada {
 }
 
 .abertura-cena {
-  width: min(52vw, 220px);
+  width: min(56vw, 28dvh);
   aspect-ratio: 1;
-  border-radius: 50%;
-  border: 1px solid var(--glass-borda);
-  background: var(--glass-bg);
-  box-shadow: var(--shadow-glow-gold);
-  overflow: hidden;
 }
 
 .frase-dia {
-  margin: 0;
+  margin: 0 0 var(--space-4);
+  padding: 0 var(--space-3);
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
@@ -357,7 +397,7 @@ textarea.entrada {
 
 .cartao-voz[data-selecionada='true'] {
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent), var(--glass-sombra);
+  box-shadow: 0 0 0 2px var(--accent), var(--glass-sombra), var(--bisel);
 }
 
 .cartao-voz-escolha {
@@ -596,6 +636,7 @@ textarea.entrada {
   border-radius: var(--radius-sm);
   background: var(--glass-bg);
   border: 1px solid var(--glass-borda);
+  box-shadow: var(--bisel);
   font-size: var(--text-caption);
 }
 
@@ -656,13 +697,18 @@ textarea.entrada {
   background: var(--glass-bg);
   border: 1px solid var(--glass-borda);
   border-radius: var(--radius-lg);
-  box-shadow: var(--glass-sombra);
+  box-shadow: var(--glass-sombra), var(--bisel);
   -webkit-backdrop-filter: blur(var(--glass-blur));
   backdrop-filter: blur(var(--glass-blur));
 }
 
 .nav button {
   min-height: var(--touch-min);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
   background: none;
   border: 0;
   border-radius: var(--radius-md);
@@ -705,6 +751,7 @@ textarea.entrada {
 
 /* Sem rolagem: cada tela cabe na altura do aparelho. */
 .app {
+  height: 100vh;
   height: 100dvh;
   overflow: hidden;
 }
@@ -757,9 +804,17 @@ textarea.entrada {
   justify-content: space-between;
 }
 
-.abertura-cena {
-  width: min(44vw, 24dvh);
+.abertura-capa .abertura-topo {
+  flex: none;
 }
+
+/* A frase fica centralizada entre o subtítulo e o botão. */
+.abertura-capa .frase-dia {
+  flex: 1;
+  justify-content: center;
+  margin: 0;
+}
+
 
 .frase-dia blockquote {
   font-size: calc(22px * var(--text-scale));
@@ -803,6 +858,514 @@ textarea.entrada {
   height: 100%;
 }
 
-.conclusao .btn {
+
+/* Botões soltos têm a largura do próprio texto, centralizados. Listas de opções ocupam a linha. */
+.tela > .btn,
+.abertura > .btn,
+.conclusao > .btn,
+.cartao-tipo > .btn,
+.boas-vindas > .btn,
+.formulario > .btn {
+  align-self: center;
+  padding: 0 var(--space-6);
+}
+
+.tela > .btn-linha,
+.tela > .btn-alinhado {
+  align-self: stretch;
+  padding: 0 var(--space-5);
+}
+
+.btn-alto-falante {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  font-style: normal;
+}
+
+/* Título no topo; terço e frase centralizados no espaço entre o título e o botão. */
+.abertura-capa .abertura-meio {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.abertura-capa .abertura-meio .frase-dia {
+  flex: none;
+}
+
+.abertura-capa .abertura-cena {
+  flex: none;
+  width: min(56vw, 30dvh);
+}
+
+/* Novena: calendário dos nove dias. */
+.novena-dias {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.novena-dia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 64px;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+.novena-dia-numero {
+  font-size: var(--text-lead);
+  font-weight: 700;
+}
+
+.novena-dia-data {
+  min-height: 1.2em;
+  font-size: calc(14px * var(--text-scale));
+  color: var(--fg-suave);
+}
+
+.novena-dia-rezado {
+  border-color: var(--accent);
+}
+
+.novena-dia-rezado .novena-dia-data {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.novena-dia-hoje {
+  box-shadow: 0 0 0 2px var(--accent), var(--glass-sombra), var(--bisel);
+}
+
+.novena-dia-pendente {
+  opacity: 0.7;
+}
+
+/* Lista simples dos cinco mistérios: só texto, a oração sempre começa no primeiro. */
+.lista-simples {
+  margin: 0;
+  padding: 0 0 0 1.4em;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  font-size: var(--text-lead);
+  line-height: 1.3;
+}
+
+/* Frases da oração aparecem devagar a cada troca de página. */
+.pagina-aparece {
+  animation: pagina-aparece 1.4s ease-out both;
+}
+
+@keyframes pagina-aparece {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pagina-aparece {
+    animation: none;
+  }
+}
+
+.oracao-texto {
+  text-align: center;
+  line-height: 1.35;
+}
+
+/* Logotipo: versão branca no tema escuro e preta no tema infantil (fundo claro). */
+.logo {
+  margin: 0;
   width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.logo img {
+  display: block;
+  width: min(92%, 380px);
+  height: auto;
+}
+
+.logo-preto {
+  display: none !important;
+}
+
+:root[data-theme='kids'] .logo-branco {
+  display: none !important;
+}
+
+:root[data-theme='kids'] .logo-preto {
+  display: block !important;
+}
+
+.referencia {
+  margin: 0;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: var(--text-body);
+}
+
+/* Créditos no fim da oração: discretos, no rodapé da conclusão. */
+.creditos {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  opacity: 0.55;
+}
+
+.creditos p {
+  margin: 0;
+  font-size: calc(13px * var(--text-scale));
+}
+
+.logo-vertical {
+  display: block;
+  width: 48px;
+  height: auto;
+}
+
+/* Logotipo pequeno e discreto no topo de todas as telas, menos a abertura. */
+.topo-logo {
+  flex: none;
+  display: flex;
+  justify-content: center;
+  padding: calc(10px + env(safe-area-inset-top)) 0 0;
+}
+
+.topo-logo img {
+  height: 15px;
+  width: auto;
+  opacity: 0.6;
+}
+
+.topo-logo + .tela {
+  padding-top: var(--space-3);
+}
+
+/* Letras mais leves: menos peso e tamanhos menores, para a tela não ficar agressiva. */
+.titulo {
+  font-size: calc(26px * var(--text-scale));
+}
+
+.btn,
+.chip {
+  font-weight: 500;
+}
+
+.frase-dia blockquote {
+  font-size: calc(19px * var(--text-scale));
+  font-weight: 400;
+}
+
+.nav button {
+  font-size: calc(13px * var(--text-scale));
+}
+
+.titulo-cartao {
+  font-weight: 500;
+}
+
+.novena-dia-numero {
+  font-weight: 600;
+}
+
+/* Barra de baixo sem caixa: ícones e nomes direto sobre o fundo. */
+.nav {
+  margin: 0 var(--space-3) calc(var(--space-2) + env(safe-area-inset-bottom));
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.nav button {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.nav button[aria-current='page'] {
+  box-shadow: none;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Tipo de oração: botão e ícone de informação lado a lado; o texto só aparece ao tocar no ícone. */
+.tipo-linha {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.cartao-tipo {
+  align-items: stretch;
+}
+
+.tipo-linha .btn {
+  min-width: 180px;
+}
+
+/* Botões de largura única na tela de intenção. */
+.btn-fixo {
+  width: 220px;
+  max-width: 100%;
+  align-self: center;
+  padding: 0;
+}
+
+/* Telas quase vazias ganham um logotipo maior. */
+.topo-logo-grande img {
+  height: 32px;
+  opacity: 0.9;
+}
+
+/* Telas com pouco conteúdo: tudo centralizado na altura, com o logotipo maior no topo. */
+.tela-centro {
+  justify-content: center;
+}
+
+.tela-centro > h1,
+.tela-centro > p {
+  text-align: center;
+}
+
+.tela-centro .lista-simples {
+  align-self: center;
+}
+
+.topo-logo-grande img {
+  height: 40px;
+}
+
+/* Bênção: luz dourada que se abre e mostra as palavras aos poucos. */
+.bencao {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  border: 0;
+  background: none;
+  color: var(--fg);
+  font: inherit;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.bencao-luz {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.bencao-halo,
+.bencao-raios,
+.bencao-clarao {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+}
+
+.bencao-halo {
+  width: 150vmax;
+  height: 150vmax;
+  margin: -75vmax 0 0 -75vmax;
+  background: radial-gradient(circle, rgba(255, 224, 150, 0.7) 0%, rgba(255, 170, 70, 0.35) 22%, transparent 55%);
+  opacity: 0;
+  transform: scale(0.15);
+  animation: bencao-abre 3.2s ease-out forwards, bencao-respira 5s ease-in-out 3.2s infinite;
+}
+
+.bencao-raios {
+  width: 170vmax;
+  height: 170vmax;
+  margin: -85vmax 0 0 -85vmax;
+  background: repeating-conic-gradient(from 0deg, rgba(255, 235, 170, 0.28) 0deg 5deg, transparent 5deg 16deg);
+  -webkit-mask-image: radial-gradient(circle, #000 0%, transparent 42%);
+  mask-image: radial-gradient(circle, #000 0%, transparent 42%);
+  opacity: 0;
+  animation: bencao-raios-aparecem 3s ease-out 0.6s forwards, bencao-gira 60s linear infinite;
+}
+
+.bencao-clarao {
+  width: 60vmax;
+  height: 60vmax;
+  margin: -30vmax 0 0 -30vmax;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, transparent 65%);
+  opacity: 0;
+  animation: bencao-clarao 2.4s ease-out forwards;
+}
+
+.bencao-texto {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  text-align: center;
+  text-shadow: 0 1px 12px rgba(0, 20, 60, 0.7);
+}
+
+.bencao-texto p {
+  margin: 0;
+  font-size: calc(22px * var(--text-scale));
+  line-height: 1.35;
+}
+
+.bencao-texto small {
+  font-size: var(--text-caption);
+  color: var(--accent);
+}
+
+@keyframes bencao-abre {
+  from {
+    opacity: 0;
+    transform: scale(0.15);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bencao-respira {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes bencao-raios-aparecem {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bencao-gira {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bencao-clarao {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  35% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bencao-halo,
+  .bencao-raios,
+  .bencao-clarao {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .bencao-clarao {
+    opacity: 0;
+  }
+}
+
+/* A luz da bênção ocupa a tela inteira, sem moldura. */
+.bencao {
+  margin: calc(-1 * (var(--space-4) + env(safe-area-inset-top))) calc(-1 * var(--space-4)) calc(-1 * var(--space-4));
+}
+
+/* Subtelas da conclusão centralizadas; ícones das redes em círculos de vidro. */
+.conclusao-centro {
+  justify-content: center;
+}
+
+.conclusao-centro .redes {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-5);
+}
+
+.rede-icone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: 0;
+  color: var(--fg);
+  font: inherit;
+  cursor: pointer;
+}
+
+.rede-circulo {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-borda);
+  box-shadow: var(--glass-sombra), var(--bisel);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  color: var(--accent);
+}
+
+.rede-nome {
+  font-size: calc(13px * var(--text-scale));
+  color: var(--fg-suave);
+}
+
+.texto-centro {
+  text-align: center;
+}
+
+/* Controle de velocidade da voz na oração. */
+.velocidade {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.chip-velocidade {
+  min-height: 38px;
+  min-width: 56px;
+  padding: 0 var(--space-3);
+  font-size: var(--text-caption);
 }

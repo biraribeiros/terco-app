@@ -13,14 +13,21 @@ function horaParaCampo(d: Date): string {
   return `${p(d.getHours())}:${p(d.getMinutes())}`;
 }
 
+const ALERTAS: { valor: Alerta; rotulo: string }[] = [
+  { valor: 'som', rotulo: 'Som' },
+  { valor: 'vibrar', rotulo: 'Vibração' },
+  { valor: 'silencioso', rotulo: 'Silencioso' },
+];
+
 interface Props {
   alerta: Alerta;
+  onAlerta: (alerta: Alerta) => void;
   horaSugerida: number;
   minutoSugerido: number;
 }
 
 /** Escolha de data e horário do próximo terço, com lembrete no aparelho e Google Agenda. */
-export function ProximoTerco({ alerta, horaSugerida, minutoSugerido }: Props) {
+export function ProximoTerco({ alerta, onAlerta, horaSugerida, minutoSugerido }: Props) {
   const sugestao = sugestaoProximo(horaSugerida, minutoSugerido);
   const [data, setData] = useState(dataParaCampo(sugestao));
   const [hora, setHora] = useState(horaParaCampo(sugestao));
@@ -63,7 +70,7 @@ export function ProximoTerco({ alerta, horaSugerida, minutoSugerido }: Props) {
 
   return (
     <section className="vidro proximo" aria-label="Próximo terço">
-      <h2 className="titulo-cartao">Próximo terço</h2>
+      <h2 className="titulo-cartao">Agendar o próximo terço</h2>
       <div className="linha-dupla">
         <label className="campo">
           <span className="texto-pequeno">Data</span>
@@ -74,9 +81,23 @@ export function ProximoTerco({ alerta, horaSugerida, minutoSugerido }: Props) {
           <input type="time" className="entrada" value={hora} onChange={(e) => setHora(e.target.value)} />
         </label>
       </div>
+      <p className="texto-pequeno">Alerta</p>
+      <div className="grade-3" role="group" aria-label="Estilo do alerta">
+        {ALERTAS.map((a) => (
+          <button
+            key={a.valor}
+            type="button"
+            className="chip chip-compacto"
+            aria-pressed={alerta === a.valor}
+            onClick={() => onAlerta(a.valor)}
+          >
+            {a.rotulo}
+          </button>
+        ))}
+      </div>
       <div className="linha-dupla">
         <button type="button" className="btn btn-secundario" onClick={() => void criarLembrete()}>
-          Criar lembrete
+          Notificação
         </button>
         <button type="button" className="btn btn-secundario" onClick={noGoogle}>
           Google Agenda

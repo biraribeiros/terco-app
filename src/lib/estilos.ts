@@ -1,6 +1,6 @@
 // Estilos visuais do terço. Só mudam material, cor e formato; a geometria e a lógica são as mesmas.
 
-export type EstiloTerco = 'madeira' | 'cristal' | 'pedra' | 'cartoon';
+export type EstiloTerco = 'branco' | 'madeira' | 'cristal' | 'pedra' | 'cartoon';
 
 export type FormaCruz = 'simples' | 'latina' | 'crucifixo';
 
@@ -22,6 +22,12 @@ export interface Estilo {
 }
 
 export const ESTILOS: Record<EstiloTerco, Estilo> = {
+  branco: {
+    nome: 'Branco',
+    conta: { cor: '#f4f7fb', metal: 0.05, rugosidade: 0.3, verniz: 0.7, escala: 1.2, oval: false },
+    cordao: '#dce6f2',
+    cruz: { forma: 'latina', cor: '#f4f7fb', metal: 0.1, rugosidade: 0.3 },
+  },
   madeira: {
     nome: 'Madeira',
     conta: { cor: '#a8693a', metal: 0.05, rugosidade: 0.5, verniz: 0.35, escala: 1.2, oval: false },
@@ -48,7 +54,7 @@ export const ESTILOS: Record<EstiloTerco, Estilo> = {
   },
 };
 
-export const ORDEM_ESTILOS: EstiloTerco[] = ['madeira', 'cristal', 'pedra', 'cartoon'];
+export const ORDEM_ESTILOS: EstiloTerco[] = ['branco', 'madeira', 'cristal', 'pedra', 'cartoon'];
 
 /** Cor que marca as contas já rezadas, igual em todos os estilos. */
-export const COR_REZADA = '#ffd166';
+export const COR_REZADA = '#ff8a1f';

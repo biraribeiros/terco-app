@@ -4,7 +4,7 @@ import { COR_REZADA, ESTILOS } from '../lib/estilos';
 import type { RosarioProps } from './Rosario3D';
 
 // Versão 2D do terço, usada em aparelhos sem WebGL ou no modo leve.
-export function Rosario2D({ acesas, atual, estilo = 'madeira' }: Omit<RosarioProps, 'girando'>) {
+export function Rosario2D({ acesas, atual, estilo = 'branco' }: Omit<RosarioProps, 'girando'>) {
   const lista = useMemo(() => contas(), []);
   const linha = useMemo(() => cordao(), []);
   const conjuntoAcesas = useMemo(() => new Set(acesas), [acesas]);

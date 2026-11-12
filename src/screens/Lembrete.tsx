@@ -15,11 +15,12 @@ const NOMES_DIAS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 interface Props {
   lembrete: LembreteConfig;
   alerta: Alerta;
+  onAlerta: (alerta: Alerta) => void;
   onSalvar: (novo: LembreteConfig) => void;
   onVoltar: () => void;
 }
 
-export function Lembrete({ lembrete, alerta, onSalvar, onVoltar }: Props) {
+export function Lembrete({ lembrete, alerta, onAlerta, onSalvar, onVoltar }: Props) {
   const [ativo, setAtivo] = useState(lembrete.ativo);
   const [horario, setHorario] = useState(
     `${String(lembrete.hora).padStart(2, '0')}:${String(lembrete.minuto).padStart(2, '0')}`,
@@ -52,7 +53,7 @@ export function Lembrete({ lembrete, alerta, onSalvar, onVoltar }: Props) {
       <>
         <h1 className="titulo">Lembretes</h1>
         <Abas itens={ABAS_LEMBRETE} atual={aba} onTrocar={setAba} />
-        <ProximoTerco alerta={alerta} horaSugerida={lembrete.hora} minutoSugerido={lembrete.minuto} />
+        <ProximoTerco alerta={alerta} onAlerta={onAlerta} horaSugerida={lembrete.hora} minutoSugerido={lembrete.minuto} />
         <button type="button" className="btn btn-secundario" onClick={onVoltar}>
           Voltar
         </button>

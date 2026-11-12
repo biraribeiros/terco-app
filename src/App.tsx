@@ -1,17 +1,22 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useCallback, useEffect, useState } from 'react';
 import './styles/app.css';
+import logoBranco from './assets/rosario-guiado_branco.svg';
+import logoPreto from './assets/rosario-guiado_preto.svg';
 import { Nav, type Aba } from './components/Nav';
-import { hojeISO, horaTexto, carregarPrefs, salvarPrefs, type Prefs, type Tipo } from './lib/prefs';
+import { DIAS_NOVENA, hojeISO, horaTexto, carregarPrefs, salvarPrefs, type Prefs, type Tipo } from './lib/prefs';
 import { musica } from './lib/musica';
+import { agendarLembrete } from './lib/nativo';
 import { tituloDaOracao } from './lib/passos';
 import { MISTERIOS, type Misterio } from './data/roteiro';
 import { Abertura } from './screens/Abertura';
 import { Intencao } from './screens/Intencao';
+import { Novena } from './screens/Novena';
 import { Tipo as TelaTipo } from './screens/Tipo';
 import { Misterios } from './screens/Misterios';
 import { BoasVindas } from './screens/BoasVindas';
 import { Oracao } from './screens/Oracao';
+import { Bencao } from './screens/Bencao';
 import { Conclusao } from './screens/Conclusao';
 import { Calendario } from './screens/Calendario';
 import { Lembrete } from './screens/Lembrete';
@@ -20,11 +25,13 @@ import { Ajustes } from './screens/Ajustes';
 
 type Tela =
   | 'abertura'
+  | 'novena'
   | 'intencao'
   | 'tipo'
   | 'misterios'
   | 'boasvindas'
   | 'oracao'
+  | 'bencao'
   | 'conclusao'
   | 'calendario'
   | 'lembrete'
@@ -40,6 +47,8 @@ interface Sessao {
   tipo: Tipo;
   intencao: string;
   passoInicial: number;
+  /** A sessão conta como um dia da novena. */
+  novena: boolean;
 }
 
 export function App() {
@@ -48,6 +57,8 @@ export function App() {
   const [intencao, setIntencao] = useState('');
   const [tipo, setTipo] = useState<Tipo>('terco');
   const [sessao, setSessao] = useState<Sessao | null>(null);
+  const [emNovena, setEmNovena] = useState(false);
+  const [resultadoNovena, setResultadoNovena] = useState<{ dia: number; concluida: boolean } | null>(null);
 
   useEffect(() => {
     void carregarPrefs().then(setPrefs);
@@ -84,18 +95,18 @@ export function App() {
   }, []);
 
   const iniciarSessao = (misterios: Misterio[]) => {
-    setSessao({ misterios, tipo, intencao, passoInicial: 0 });
+    setSessao({ misterios, tipo, intencao, passoInicial: 0, novena: emNovena });
     setTela('boasvindas');
   };
 
   const continuarOracao = () => {
     if (!prefs?.progresso) return;
-    const { chaves, tipo: tipoSalvo, intencao: intencaoSalva, passo } = prefs.progresso;
+    const { chaves, tipo: tipoSalvo, intencao: intencaoSalva, passo, novena } = prefs.progresso;
     const misterios = chaves
       .map((chave) => MISTERIOS.find((m) => m.chave === chave))
       .filter((m): m is Misterio => m !== undefined);
     if (misterios.length === 0) return;
-    setSessao({ misterios, tipo: tipoSalvo, intencao: intencaoSalva, passoInicial: passo });
+    setSessao({ misterios, tipo: tipoSalvo, intencao: intencaoSalva, passoInicial: passo, novena });
     setTela('oracao');
   };
 
@@ -107,6 +118,7 @@ export function App() {
           chaves: sessao.misterios.map((m) => m.chave),
           tipo: sessao.tipo,
           intencao: sessao.intencao,
+          novena: sessao.novena,
           passo,
         },
       });
@@ -117,7 +129,20 @@ export function App() {
   const concluirOracao = () => {
     if (!prefs || !sessao) return;
     const hoje = hojeISO();
+    let titulo = tituloDaOracao(sessao.tipo, sessao.misterios);
+    let novena = prefs.novena;
+    let resultado: { dia: number; concluida: boolean } | null = null;
+    if (sessao.novena) {
+      const dias = novena?.dias ?? [];
+      const novosDias = dias.includes(hoje) ? dias : [...dias, hoje];
+      const concluida = novosDias.length >= DIAS_NOVENA;
+      resultado = { dia: Math.min(novosDias.length, DIAS_NOVENA), concluida };
+      titulo = `${titulo} · novena, dia ${resultado.dia}`;
+      novena = concluida ? null : { intencao: novena?.intencao ?? sessao.intencao, dias: novosDias };
+    }
+    setResultadoNovena(resultado);
     atualizar({
+      novena,
       diasRezados: prefs.diasRezados.includes(hoje) ? prefs.diasRezados : [...prefs.diasRezados, hoje],
       historico: [
         ...prefs.historico,
@@ -125,17 +150,27 @@ export function App() {
           id: String(Date.now()),
           data: hoje,
           hora: horaTexto(),
-          titulo: tituloDaOracao(sessao.tipo, sessao.misterios),
+          titulo,
           intencao: sessao.intencao,
         },
       ],
       progresso: null,
     });
-    setTela('conclusao');
+    setTela('bencao');
+  };
+
+  // O estilo do alerta vale também para o lembrete semanal, que é reagendado com ele.
+  const trocarAlerta = (alerta: Prefs['alerta']) => {
+    if (!prefs) return;
+    atualizar({ alerta });
+    const { ativo, hora, minuto, dias } = prefs.lembrete;
+    if (ativo) void agendarLembrete(hora, minuto, dias, alerta);
   };
 
   const voltarAoInicio = () => {
     setIntencao('');
+    setEmNovena(false);
+    setResultadoNovena(null);
     setTela('intencao');
   };
 
@@ -155,17 +190,41 @@ export function App() {
             primeiroAcesso={!prefs.onboardingFeito}
             onEntrar={(nome, voz) => {
               if (!prefs.onboardingFeito) atualizar({ nome, voz, onboardingFeito: true });
-              setTela('intencao');
+              setEmNovena(false);
+              setTela(prefs.novena ? 'novena' : 'intencao');
             }}
           />
         );
+      case 'novena': {
+        const dias = prefs.novena?.dias ?? [];
+        return (
+          <Novena
+            intencao={prefs.novena?.intencao ?? ''}
+            dias={dias}
+            dia={Math.min(dias.includes(hojeISO()) ? dias.length : dias.length + 1, DIAS_NOVENA)}
+            onContinuar={() => {
+              setIntencao(prefs.novena?.intencao ?? '');
+              setEmNovena(true);
+              setTela('tipo');
+            }}
+            onRecomecar={() => {
+              atualizar({ novena: { intencao: prefs.novena?.intencao ?? '', dias: [] } });
+              setIntencao(prefs.novena?.intencao ?? '');
+              setEmNovena(true);
+              setTela('tipo');
+            }}
+          />
+        );
+      }
       case 'intencao':
         return (
           <Intencao
             nome={prefs.nome}
             temProgresso={prefs.progresso !== null}
-            onContinuar={(texto) => {
+            podeNovena={prefs.novena === null}
+            onContinuar={(texto, comoNovena) => {
               setIntencao(texto);
+              setEmNovena(comoNovena);
               setTela('tipo');
             }}
             onRetomar={continuarOracao}
@@ -184,7 +243,12 @@ export function App() {
       case 'misterios':
         return <Misterios tipo={tipo} onIniciar={iniciarSessao} onVoltar={() => setTela('tipo')} />;
       case 'boasvindas':
-        return <BoasVindas voz={prefs.voz} onComecar={() => setTela('oracao')} />;
+        return <BoasVindas
+            voz={prefs.voz}
+            velocidade={prefs.velocidade}
+            onVelocidade={(velocidade) => atualizar({ velocidade })}
+            onComecar={() => setTela('oracao')}
+          />;
       case 'oracao':
         return sessao ? (
           <Oracao
@@ -194,17 +258,23 @@ export function App() {
             passoInicial={sessao.passoInicial}
             modoLeve={prefs.modoLeve}
             estilo={prefs.estiloTerco}
+            velocidade={prefs.velocidade}
+            onVelocidade={(velocidade) => atualizar({ velocidade })}
             onProgresso={registrarProgresso}
             onConcluir={concluirOracao}
             onSair={() => setTela('intencao')}
           />
         ) : null;
+      case 'bencao':
+        return <Bencao onFim={() => setTela('conclusao')} />;
       case 'conclusao':
         return (
           <Conclusao
             kids={prefs.voz === 'kids'}
             nome={prefs.nome}
             alerta={prefs.alerta}
+            onAlerta={trocarAlerta}
+            novena={resultadoNovena}
             horaLembrete={prefs.lembrete.hora}
             minutoLembrete={prefs.lembrete.minuto}
             onInicio={voltarAoInicio}
@@ -217,6 +287,7 @@ export function App() {
           <Lembrete
             lembrete={prefs.lembrete}
             alerta={prefs.alerta}
+            onAlerta={trocarAlerta}
             onSalvar={(lembrete) => atualizar({ lembrete })}
             onVoltar={() => setTela('ajustes')}
           />
@@ -230,10 +301,16 @@ export function App() {
 
   return (
     <div className="app">
+      {tela !== 'abertura' && tela !== 'bencao' && (
+        <header className={`topo-logo${tela === 'tipo' || tela === 'misterios' || tela === 'boasvindas' || tela === 'conclusao' ? ' topo-logo-grande' : ''}`} aria-hidden="true">
+          <img className="logo-branco" src={logoBranco} alt="" />
+          <img className="logo-preto" src={logoPreto} alt="" />
+        </header>
+      )}
       <AnimatePresence mode="wait">
         <motion.section
           key={tela}
-          className="tela"
+          className={`tela${tela === 'tipo' || tela === 'misterios' ? ' tela-centro' : ''}`}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -12 }}

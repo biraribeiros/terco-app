@@ -21,7 +21,7 @@ export const TRECHOS: Trecho[] = [
   },
   {
     referencia: 'Mateus 11:28',
-    texto: 'Vinde a mim, todos os que estais cansados e sobrecarregados, e eu vos aliviarei.',
+    texto: 'Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei.',
     reflexao: 'Quando estiver cansado, leve seu peso a Jesus.',
   },
   {
