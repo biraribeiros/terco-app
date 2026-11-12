@@ -2,175 +2,175 @@
   {
     "voz": "feminina",
     "arquivo": "feminina/boas-vindas.mp3",
-    "duracao_ms": 5731,
+    "duracao_ms": 6880,
     "texto": "Seja bem-vindo. Respire fundo, acalme o coração. Vamos rezar o terço juntos?"
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/oracoes/01-sinal-da-cruz.mp3",
-    "duracao_ms": 4246,
+    "duracao_ms": 4632,
     "texto": "Em nome do Pai, do Filho e do Espírito Santo. Amém."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/oracoes/02-credo.mp3",
-    "duracao_ms": 37190,
+    "duracao_ms": 46186,
     "texto": "Creio em Deus Pai todo-poderoso, criador do céu e da terra. E em Jesus Cristo, seu único Filho, nosso Senhor, que foi concebido pelo poder do Espírito Santo, nasceu da Virgem Maria, padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado, desceu à mansão dos mortos, ressuscitou ao terceiro dia, subiu aos céus, está sentado à direita de Deus Pai todo-poderoso, donde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo, na santa Igreja Católica, na comunhão dos santos, na remissão dos pecados, na ressurreição da carne e na vida eterna. Amém."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/oracoes/03-pai-nosso.mp3",
-    "duracao_ms": 21846,
+    "duracao_ms": 26574,
     "texto": "Pai nosso, que estais nos céus, santificado seja o vosso nome; venha a nós o vosso reino; seja feita a vossa vontade, assim na terra como no céu. O pão nosso de cada dia nos dai hoje; perdoai-nos as nossas ofensas, assim como nós perdoamos a quem nos tem ofendido; e não nos deixeis cair em tentação, mas livrai-nos do mal. Amém."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/oracoes/04-ave-maria.mp3",
-    "duracao_ms": 15349,
+    "duracao_ms": 18576,
     "texto": "Ave Maria, cheia de graça, o Senhor é convosco. Bendita sois vós entre as mulheres, e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora da nossa morte. Amém."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/oracoes/05-gloria.mp3",
-    "duracao_ms": 8487,
+    "duracao_ms": 9680,
     "texto": "Glória ao Pai, ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre, pelos séculos dos séculos. Amém."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/oracoes/06-o-meu-jesus.mp3",
-    "duracao_ms": 10509,
+    "duracao_ms": 12753,
     "texto": "Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai para o céu todas as almas, especialmente as mais necessitadas da vossa misericórdia. Amém."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/oracoes/07-salve-rainha.mp3",
-    "duracao_ms": 32667,
+    "duracao_ms": 43040,
     "texto": "Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos, os degredados filhos de Eva; a vós suspiramos, gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei; e depois deste desterro, mostrai-nos Jesus, bendito fruto do vosso ventre. Ó clemente, ó piedosa, ó doce sempre Virgem Maria. Rogai por nós, Santa Mãe de Deus, para que sejamos dignos das promessas de Cristo. Amém."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/oracoes/08-terco-concluido.mp3",
-    "duracao_ms": 3490,
+    "duracao_ms": 4354,
     "texto": "Terço concluído. Que a paz de Deus esteja com você."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/gozosos-1-anunciacao.mp3",
-    "duracao_ms": 3080,
+    "duracao_ms": 3573,
     "texto": "Primeiro mistério gozoso: A Anunciação."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/gozosos-2-visitacao.mp3",
-    "duracao_ms": 3063,
+    "duracao_ms": 3546,
     "texto": "Segundo mistério gozoso: A Visitação."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/gozosos-3-nascimento.mp3",
-    "duracao_ms": 3677,
+    "duracao_ms": 4223,
     "texto": "Terceiro mistério gozoso: O Nascimento de Jesus."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/gozosos-4-apresentacao.mp3",
-    "duracao_ms": 3598,
+    "duracao_ms": 4159,
     "texto": "Quarto mistério gozoso: A Apresentação no Templo."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/gozosos-5-perda-e-encontro.mp3",
-    "duracao_ms": 4982,
+    "duracao_ms": 5817,
     "texto": "Quinto mistério gozoso: A Perda e o Encontro do Menino Jesus no Templo."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/luminosos-1-batismo.mp3",
-    "duracao_ms": 4160,
+    "duracao_ms": 4580,
     "texto": "Primeiro mistério luminoso: O Batismo de Jesus no Jordão."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/luminosos-2-cana.mp3",
-    "duracao_ms": 3349,
+    "duracao_ms": 3906,
     "texto": "Segundo mistério luminoso: As Bodas de Caná."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/luminosos-3-reino.mp3",
-    "duracao_ms": 4078,
+    "duracao_ms": 4747,
     "texto": "Terceiro mistério luminoso: O Anúncio do Reino de Deus."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/luminosos-4-transfiguracao.mp3",
-    "duracao_ms": 3233,
+    "duracao_ms": 3637,
     "texto": "Quarto mistério luminoso: A Transfiguração."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/luminosos-5-eucaristia.mp3",
-    "duracao_ms": 3935,
+    "duracao_ms": 4640,
     "texto": "Quinto mistério luminoso: A Instituição da Eucaristia."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/dolorosos-1-horto.mp3",
-    "duracao_ms": 3417,
+    "duracao_ms": 4016,
     "texto": "Primeiro mistério doloroso: A Agonia no Horto."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/dolorosos-2-flagelacao.mp3",
-    "duracao_ms": 3150,
+    "duracao_ms": 3551,
     "texto": "Segundo mistério doloroso: A Flagelação."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/dolorosos-3-coroacao.mp3",
-    "duracao_ms": 3783,
+    "duracao_ms": 4405,
     "texto": "Terceiro mistério doloroso: A Coroação de Espinhos."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/dolorosos-4-cruz.mp3",
-    "duracao_ms": 3685,
+    "duracao_ms": 4170,
     "texto": "Quarto mistério doloroso: Jesus carrega a Cruz."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/dolorosos-5-crucificacao.mp3",
-    "duracao_ms": 4665,
+    "duracao_ms": 5161,
     "texto": "Quinto mistério doloroso: A Crucificação e a Morte de Jesus."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/gloriosos-1-ressurreicao.mp3",
-    "duracao_ms": 3219,
+    "duracao_ms": 3694,
     "texto": "Primeiro mistério glorioso: A Ressurreição."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/gloriosos-2-ascensao.mp3",
-    "duracao_ms": 4267,
+    "duracao_ms": 5121,
     "texto": "Segundo mistério glorioso: A Ascensão de Jesus ao céu."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/gloriosos-3-pentecostes.mp3",
-    "duracao_ms": 4039,
+    "duracao_ms": 4589,
     "texto": "Terceiro mistério glorioso: A Vinda do Espírito Santo."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/gloriosos-4-assuncao.mp3",
-    "duracao_ms": 3551,
+    "duracao_ms": 4088,
     "texto": "Quarto mistério glorioso: A Assunção de Maria."
   },
   {
     "voz": "feminina",
     "arquivo": "feminina/misterios/gloriosos-5-coroacao.mp3",
-    "duracao_ms": 3545,
+    "duracao_ms": 3993,
     "texto": "Quinto mistério glorioso: A Coroação de Maria."
   },
   {

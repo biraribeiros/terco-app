@@ -24,7 +24,7 @@ Data: 2026-11-11. Verificação feita por script e por navegação no app (taman
 
 ## Pendências conhecidas
 
-1. Licença comercial das vozes ElevenLabs (Keren é voz de biblioteca) antes de publicar.
+1. Licença comercial das vozes ElevenLabs antes de publicar. A feminina foi trocada de Keren para Miranda (2026-11-12), porque a licença da Keren estava em avaliação. Confirmar os termos da Miranda.
 2. Palavra do dia tem 4 trechos provisórios; a Etapa 4 traz 60 ou mais, conferidos.
 3. Bundle com 1,3 MB por causa do Three.js; otimizar na Etapa 5.
 4. Animação de elemento compartilhado (terço do splash para a oração) não implementada.

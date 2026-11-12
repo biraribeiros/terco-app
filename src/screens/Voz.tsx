@@ -3,7 +3,7 @@ import { narrador, urlAudio } from '../lib/narrador';
 import type { Voz } from '../lib/prefs';
 
 const OPCOES: { voz: Voz; titulo: string; descricao: string }[] = [
-  { voz: 'feminina', titulo: 'Feminina', descricao: 'Voz suave e calma (Keren).' },
+  { voz: 'feminina', titulo: 'Feminina', descricao: 'Voz serena e acolhedora (Miranda).' },
   { voz: 'masculina', titulo: 'Masculina', descricao: 'Voz firme e serena (Carlos).' },
   { voz: 'kids', titulo: 'Kids', descricao: 'Voz animada para crianças (Piku). Ativa o Modo Kids.' },
 ];
