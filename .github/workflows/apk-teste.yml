@@ -1,0 +1,46 @@
+name: APK de teste
+
+# Compila o APK de debug na nuvem. Rode manualmente em Actions > APK de teste > Run workflow,
+# ou a cada push na main. O arquivo fica em Artifacts da execução (app-debug.apk).
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Build web e sincronizar com o Android
+        run: |
+          npm run build
+          npx cap sync android
+
+      - name: Compilar APK de debug
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+
+      - name: Publicar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: terco-app-debug
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30
