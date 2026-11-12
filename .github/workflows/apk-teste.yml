@@ -1,11 +1,14 @@
 name: APK de teste
 
 # Compila o APK de debug na nuvem. Rode manualmente em Actions > APK de teste > Run workflow,
-# ou a cada push na main. O arquivo fica em Artifacts da execução (app-debug.apk).
+# ou a cada push na main. O APK sai na Release "apk-teste" (terco-app-teste.apk).
 on:
   workflow_dispatch:
   push:
     branches: [main]
+
+permissions:
+  contents: write
 
 jobs:
   apk:
@@ -38,9 +41,15 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
 
-      - name: Publicar APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: terco-app-debug
-          path: android/app/build/outputs/apk/debug/app-debug.apk
-          retention-days: 30
+      # Publica numa Release (não usa a cota de Artifacts do Actions).
+      # A tag fixa "apk-teste" é sobrescrita a cada execução.
+      - name: Publicar APK na Release apk-teste
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp android/app/build/outputs/apk/debug/app-debug.apk terco-app-teste.apk
+          gh release view apk-teste >/dev/null 2>&1 || gh release create apk-teste \
+            --title "APK de teste" \
+            --notes "APK de debug para teste. Gerado automaticamente a partir da main." \
+            --prerelease --target "$GITHUB_SHA"
+          gh release upload apk-teste terco-app-teste.apk --clobber
