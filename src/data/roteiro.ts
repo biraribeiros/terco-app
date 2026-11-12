@@ -1,4 +1,4 @@
-import type { Voz } from '../lib/prefs';
+import type { VozFalada } from '../lib/prefs';
 
 // Textos gerados e aprovados na Etapa 2 (espelham docs/roteiro-audio.json).
 export type Conjunto = 'gozosos' | 'luminosos' | 'dolorosos' | 'gloriosos';
@@ -19,7 +19,7 @@ export interface Misterio {
   explicacao: string;
 }
 
-export const BOAS_VINDAS: Record<Voz, string> = {
+export const BOAS_VINDAS: Record<VozFalada, string> = {
   feminina: 'Seja bem-vindo. Respire fundo, acalme o coração. Vamos rezar o terço juntos?',
   masculina: 'Seja bem-vindo. Respire fundo, acalme o coração. Vamos rezar o terço juntos?',
   kids: 'Oi, amiguinho! Que bom ver você aqui. Vamos rezar o terço juntos?',

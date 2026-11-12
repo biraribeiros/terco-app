@@ -1,7 +1,7 @@
-export type Aba = 'inicio' | 'calendario' | 'palavra' | 'ajustes';
+export type Aba = 'intencao' | 'calendario' | 'palavra' | 'ajustes';
 
 const ROTULOS: Record<Aba, string> = {
-  inicio: 'Início',
+  intencao: 'Início',
   calendario: 'Calendário',
   palavra: 'Palavra',
   ajustes: 'Ajustes',

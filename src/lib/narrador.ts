@@ -21,6 +21,13 @@ export class Narrador {
     });
   }
 
+  /** Quanto do áudio atual já foi falado (0 a 1), ou null se não há áudio carregado. */
+  fracao(): number | null {
+    const audio = this.audio;
+    if (!audio || !Number.isFinite(audio.duration) || audio.duration <= 0) return null;
+    return Math.min(1, audio.currentTime / audio.duration);
+  }
+
   pausar(): void {
     this.audio?.pause();
   }

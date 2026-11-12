@@ -41,17 +41,17 @@ async function compartilharImagem(trecho: Trecho): Promise<void> {
   ctx.fillStyle = '#0B2A55';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = '#FFD166';
-  ctx.font = '600 56px Georgia, serif';
+  ctx.font = '600 56px system-ui, sans-serif';
   ctx.textAlign = 'center';
   ctx.fillText('Palavra do dia', 540, 220);
 
   ctx.fillStyle = '#FFFFFF';
-  ctx.font = '500 64px Georgia, serif';
+  ctx.font = '500 64px system-ui, sans-serif';
   const linhas = quebrarLinhas(ctx, `“${trecho.texto}”`, 900);
   linhas.forEach((linha, i) => ctx.fillText(linha, 540, 480 + i * 90));
 
   ctx.fillStyle = '#FFD166';
-  ctx.font = '600 52px Georgia, serif';
+  ctx.font = '600 52px system-ui, sans-serif';
   ctx.fillText(trecho.referencia, 540, 480 + linhas.length * 90 + 80);
 
   const blob = await new Promise<Blob | null>((resolver) => canvas.toBlob(resolver, 'image/png'));

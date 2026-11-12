@@ -62,17 +62,49 @@
   --duration-slow: 450ms;
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
 
-  /* Tema padrão (adulto) */
-  color-scheme: light;
-  --bg: var(--color-white-50);
-  --fg: var(--color-blue-900);
-  --accent: var(--color-blue-600);
+  /* Tema padrão (adulto): vidro sobre azul profundo */
+  color-scheme: dark;
+  --bg: #071a3a;
+  --fg: #f4f9ff;
+  --fg-suave: rgba(244, 249, 255, 0.8);
+  --accent: var(--color-gold-300);
+  --on-accent: #0b2a55;
+  --app-bg:
+    radial-gradient(60% 40% at 0% 0%, rgba(86, 180, 255, 0.35) 0%, transparent 70%),
+    radial-gradient(60% 40% at 100% 100%, rgba(255, 170, 70, 0.28) 0%, transparent 70%),
+    linear-gradient(180deg, #0b2a55 0%, #071a3a 100%);
+  --glass-bg: rgba(255, 255, 255, 0.09);
+  --glass-borda: rgba(255, 255, 255, 0.22);
+  --glass-blur: 18px;
+  --glass-sombra: 0 8px 32px rgba(0, 0, 0, 0.28);
+  --campo-bg: rgba(255, 255, 255, 0.1);
 }
 
 :root[data-theme='kids'] {
+  color-scheme: light;
   --bg: var(--kids-cream-50);
   --fg: var(--kids-ink-900);
+  --fg-suave: rgba(27, 27, 58, 0.78);
   --accent: var(--kids-violet-500);
+  --on-accent: #ffffff;
+  --app-bg:
+    radial-gradient(55% 40% at 10% 5%, var(--kids-mint-100) 0%, transparent 70%),
+    radial-gradient(55% 40% at 95% 95%, var(--kids-pink-200) 0%, transparent 70%),
+    var(--kids-cream-50);
+  --glass-bg: rgba(255, 255, 255, 0.68);
+  --glass-borda: rgba(106, 76, 255, 0.28);
+  --glass-sombra: 0 8px 24px rgba(27, 27, 58, 0.12);
+  --campo-bg: rgba(255, 255, 255, 0.9);
+}
+
+/* Modo leve: sem desfoque, que pesa em celulares mais simples. */
+:root[data-leve='true'] {
+  --glass-blur: 0px;
+  --glass-bg: rgba(255, 255, 255, 0.14);
+}
+
+:root[data-leve='true'][data-theme='kids'] {
+  --glass-bg: rgba(255, 255, 255, 0.9);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -104,6 +136,6 @@ body {
 
 h1,
 h2 {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-weight: 600;
+  font-family: inherit;
+  font-weight: 700;
 }

@@ -1,26 +1,55 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CONJUNTOS, type Conjunto, type Misterio } from '../data/roteiro';
-import { misteriosDoConjunto } from '../lib/passos';
+import { conjuntoDoDia, misteriosDoConjunto, misteriosDoRosario, ORDEM_CONJUNTOS } from '../lib/passos';
+import type { Tipo } from '../lib/prefs';
 
 interface Props {
+  tipo: Tipo;
   onIniciar: (misterios: Misterio[]) => void;
   onVoltar: () => void;
 }
 
-const CONJUNTOS_ORDEM: Conjunto[] = ['gozosos', 'luminosos', 'dolorosos', 'gloriosos'];
-
-export function Misterios({ onIniciar, onVoltar }: Props) {
+export function Misterios({ tipo, onIniciar, onVoltar }: Props) {
   const [conjunto, setConjunto] = useState<Conjunto | null>(null);
+  const sugestao = useMemo(() => conjuntoDoDia(), []);
+
+  if (tipo === 'rosario') {
+    return (
+      <>
+        <h1 className="titulo">Rosário completo</h1>
+        <p className="texto-pequeno">Os quatro conjuntos, um após o outro, com 20 mistérios.</p>
+        <div className="grade-2">
+          {ORDEM_CONJUNTOS.map((c) => (
+            <section key={c} className="vidro cartao-conjunto">
+              <h2 className="titulo-cartao">{CONJUNTOS[c]}</h2>
+              <p className="texto-pequeno">5 mistérios</p>
+            </section>
+          ))}
+        </div>
+        <button type="button" className="btn btn-primario" onClick={() => onIniciar(misteriosDoRosario())}>
+          Começar o Rosário completo
+        </button>
+        <button type="button" className="btn btn-secundario" onClick={onVoltar}>
+          Voltar
+        </button>
+      </>
+    );
+  }
 
   if (conjunto === null) {
     return (
       <>
         <h1 className="titulo">Escolha os mistérios</h1>
+        <button type="button" className="btn btn-primario" onClick={() => onIniciar(misteriosDoConjunto(sugestao))}>
+          Sugestão de hoje: {CONJUNTOS[sugestao].toLowerCase()}
+        </button>
+        <p className="texto-pequeno">Ou escolha outro conjunto:</p>
         <div className="grade-2">
-          {CONJUNTOS_ORDEM.map((c) => (
-            <button key={c} type="button" className={`cartao cartao-conjunto cartao-${c}`} onClick={() => setConjunto(c)}>
+          {ORDEM_CONJUNTOS.map((c) => (
+            <button key={c} type="button" className="vidro cartao-conjunto cartao-botao" onClick={() => setConjunto(c)}>
               <span className="titulo-cartao">{CONJUNTOS[c]}</span>
-              <span className="texto-corpo">5 mistérios</span>
+              <span className="texto-pequeno">5 mistérios</span>
+              {c === sugestao && <span className="selo">Hoje</span>}
             </button>
           ))}
         </div>
@@ -36,16 +65,16 @@ export function Misterios({ onIniciar, onVoltar }: Props) {
     <>
       <h1 className="titulo">Mistérios {CONJUNTOS[conjunto].toLowerCase()}</h1>
       <button type="button" className="btn btn-primario" onClick={() => onIniciar(lista)}>
-        Rosário completo (5 mistérios)
+        Rezar os 5 mistérios
       </button>
-      <p className="texto-corpo">Ou reze apenas um mistério:</p>
+      <p className="texto-pequeno">Ou reze apenas um mistério:</p>
       {lista.map((m) => (
-        <button key={m.chave} type="button" className="btn btn-secundario btn-alinhado" onClick={() => onIniciar([m])}>
+        <button key={m.chave} type="button" className="btn btn-secundario btn-alinhado btn-linha" onClick={() => onIniciar([m])}>
           {m.ordem}º · {m.nome}
         </button>
       ))}
       <button type="button" className="btn btn-secundario" onClick={() => setConjunto(null)}>
-        Voltar aos conjuntos
+        Voltar
       </button>
     </>
   );

@@ -21,7 +21,7 @@ interface TercoProps extends RosarioProps {
 }
 
 /** Escolhe a versão 3D ou a 2D (modo leve ou aparelho sem WebGL). */
-export function Terco({ modoLeve = false, acesas, atual, foco, girando }: TercoProps) {
+export function Terco({ modoLeve = false, acesas, atual, foco, girando, estilo }: TercoProps) {
   const usar3D = useMemo(() => !modoLeve && temWebGL(), [modoLeve]);
   return (
     <div
@@ -30,9 +30,9 @@ export function Terco({ modoLeve = false, acesas, atual, foco, girando }: TercoP
       aria-label={`Terço: ${acesas.length} de 59 contas rezadas`}
     >
       {usar3D ? (
-        <Rosario3D acesas={acesas} atual={atual} foco={foco} girando={girando} />
+        <Rosario3D acesas={acesas} atual={atual} foco={foco} girando={girando} estilo={estilo} />
       ) : (
-        <Rosario2D acesas={acesas} atual={atual} foco={foco} />
+        <Rosario2D acesas={acesas} atual={atual} foco={foco} estilo={estilo} />
       )}
     </div>
   );
