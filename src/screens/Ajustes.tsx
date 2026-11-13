@@ -172,13 +172,16 @@ export function Ajustes({ prefs, onAlterar, onLembrete }: Props) {
       {secao === 'sobre' && (
         <>
         <p className="texto-pequeno">
-          Este terço é um presente da família Via, feito pra acompanhar você na oração. Não custa nada: não tem
-          anúncio, não pede cadastro e funciona sem internet. Se fizer bem pra você, passe pra frente.
+          Este terço é um presente da família Via, feito pra acompanhar você na oração. Não custa nada, não tem
+          anúncio nem cadastro e funciona sem internet.
+        </p>
+        <p className="texto-pequeno">Só pedimos uma coisa: sua oração em nossa intenção.</p>
+        <p className="texto-pequeno">
+          Versão não comercial, sem fins lucrativos. Não vendemos nada nem ganhamos dinheiro com o app.
         </p>
         <p className="texto-pequeno">
-          Rosário Guiado, versão de testes. Funciona sem internet. Não há anúncios nem conta. Seu nome, suas intenções,
-          o progresso e o histórico ficam só neste aparelho. A internet é usada apenas quando você escolhe Google Agenda
-          ou compartilhar um convite. Textos bíblicos: Bíblia Portuguesa Mundial, em domínio público.
+          Seu nome, intenções e histórico ficam só neste aparelho. A internet só é usada se você escolher Google
+          Agenda ou compartilhar. Bíblia Portuguesa Mundial, domínio público.
         </p>
         <CreditoVia />
         </>
