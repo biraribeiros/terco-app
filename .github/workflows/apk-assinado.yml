@@ -1,0 +1,61 @@
+name: APK assinado
+
+# Gera o APK (e o AAB) de release assinado. Rode manualmente em Actions > APK assinado > Run workflow.
+# A chave vem dos segredos KEYSTORE_BASE64, KEYSTORE_SENHA e KEYSTORE_ALIAS.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Build web e sincronizar com o Android
+        run: |
+          npm run build
+          npx cap sync android
+
+      - name: Restaurar a chave de assinatura
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/rosario-guiado.keystore"
+
+      - name: Compilar APK e AAB assinados
+        working-directory: android
+        env:
+          KEYSTORE_FILE: ${{ runner.temp }}/rosario-guiado.keystore
+          KEYSTORE_SENHA: ${{ secrets.KEYSTORE_SENHA }}
+          KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease bundleRelease --no-daemon
+
+      - name: Publicar na Release apk-assinado
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp android/app/build/outputs/apk/release/app-release.apk rosario-guiado.apk
+          cp android/app/build/outputs/bundle/release/app-release.aab rosario-guiado.aab
+          gh release view apk-assinado >/dev/null 2>&1 || gh release create apk-assinado \
+            --title "APK assinado" \
+            --notes "APK e AAB de release assinados. Gerados manualmente a partir da main." \
+            --target "$GITHUB_SHA"
+          gh release upload apk-assinado rosario-guiado.apk rosario-guiado.aab --clobber

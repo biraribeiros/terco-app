@@ -90,7 +90,7 @@ export function Palavra({ ultimoTrecho, onEscolher }: Props) {
       <button type="button" className="btn btn-primario" onClick={() => void compartilharImagem(trecho)}>
         Compartilhar como imagem
       </button>
-      <span className="dica">Tradução Almeida Revista e Corrigida (domínio público).</span>
+      <span className="dica">Bíblia Portuguesa Mundial (domínio público).</span>
     </>
   );
 }

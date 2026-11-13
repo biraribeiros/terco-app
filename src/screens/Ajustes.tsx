@@ -172,7 +172,7 @@ export function Ajustes({ prefs, onAlterar, onLembrete }: Props) {
         <p className="texto-pequeno">
           Rosário Guiado, versão de testes. Funciona sem internet. Não há anúncios nem conta. Seu nome, suas intenções,
           o progresso e o histórico ficam só neste aparelho. A internet é usada apenas quando você escolhe Google Agenda
-          ou compartilhar um convite.
+          ou compartilhar um convite. Textos bíblicos: Bíblia Portuguesa Mundial, em domínio público.
         </p>
       )}
     </>

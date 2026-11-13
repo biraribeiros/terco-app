@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 
-// Bênção sacerdotal (Números 6:24-26), na tradução usada no app.
+// Bênção sacerdotal (Números 6:24-26), na Bíblia Portuguesa Mundial (domínio público).
 const LINHAS = [
-  'O Senhor te abençoe e te guarde;',
-  'o Senhor faça resplandecer o seu rosto sobre ti, e tenha misericórdia de ti;',
-  'o Senhor sobre ti levante o seu rosto e te dê a paz.',
+  'O Senhor te abençoe e te guarde.',
+  'O Senhor faça resplandecer o seu rosto sobre ti, e tenha misericórdia de ti.',
+  'O Senhor levante o seu rosto sobre ti, e te dê a paz.',
 ];
 
 const ESPERA_MS = 9000;
