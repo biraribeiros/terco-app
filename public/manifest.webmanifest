@@ -1,0 +1,13 @@
+{
+  "name": "Rosário Guiado",
+  "short_name": "Rosário",
+  "description": "Reze o terço ou o rosário com voz guiada.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#071a3a",
+  "theme_color": "#0B2A55",
+  "lang": "pt-BR",
+  "icons": [{ "src": "icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }]
+}

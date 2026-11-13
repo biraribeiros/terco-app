@@ -4,6 +4,7 @@ import './styles/app.css';
 import logoBranco from './assets/rosario-guiado_branco.svg';
 import logoPreto from './assets/rosario-guiado_preto.svg';
 import { Nav, type Aba } from './components/Nav';
+import { Splash } from './components/Splash';
 import { DIAS_NOVENA, hojeISO, horaTexto, carregarPrefs, salvarPrefs, type Prefs, type Tipo } from './lib/prefs';
 import { musica } from './lib/musica';
 import { agendarLembrete } from './lib/nativo';
@@ -54,6 +55,8 @@ interface Sessao {
 export function App() {
   const [prefs, setPrefs] = useState<Prefs | null>(null);
   const [tela, setTela] = useState<Tela>('abertura');
+  const [splash, setSplash] = useState(true);
+  const fimSplash = useCallback(() => setSplash(false), []);
   const [intencao, setIntencao] = useState('');
   const [tipo, setTipo] = useState<Tipo>('terco');
   const [sessao, setSessao] = useState<Sessao | null>(null);
@@ -174,7 +177,7 @@ export function App() {
     setTela('intencao');
   };
 
-  if (!prefs) return null;
+  if (!prefs) return <div className="app"><div className="splash" /></div>;
 
   const aba: Aba | null = ABAS.includes(tela) ? (tela as Aba) : null;
 
@@ -301,6 +304,7 @@ export function App() {
 
   return (
     <div className="app">
+      <AnimatePresence>{splash && <Splash onFim={fimSplash} />}</AnimatePresence>
       {tela !== 'abertura' && tela !== 'bencao' && (
         <header className={`topo-logo${tela === 'tipo' || tela === 'misterios' || tela === 'boasvindas' || tela === 'conclusao' ? ' topo-logo-grande' : ''}`} aria-hidden="true">
           <img className="logo-branco" src={logoBranco} alt="" />
