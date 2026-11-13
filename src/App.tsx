@@ -54,7 +54,7 @@ interface Sessao {
 
 export function App() {
   const [prefs, setPrefs] = useState<Prefs | null>(null);
-  const [tela, setTela] = useState<Tela>('abertura');
+  const [tela, setTela] = useState<Tela>(() => (import.meta.env.DEV ? ((new URLSearchParams(location.search).get('tela') as Tela | null) ?? 'abertura') : 'abertura'));
   const [splash, setSplash] = useState(true);
   const fimSplash = useCallback(() => setSplash(false), []);
   const [intencao, setIntencao] = useState('');

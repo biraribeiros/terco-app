@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { CreditoVia } from '../components/CreditoVia';
 import logoVerticalBranco from '../assets/rosario-guiado-vertical_branco.svg';
 import logoVerticalPreto from '../assets/rosario-guiado-vertical_preto.svg';
 import { ProximoTerco } from '../components/ProximoTerco';
@@ -148,7 +149,7 @@ export function Conclusao({ kids, nome, alerta, onAlerta, novena, horaLembrete, 
       <footer className="creditos">
         <img className="logo-vertical logo-branco" src={logoVerticalBranco} alt="" aria-hidden="true" />
         <img className="logo-vertical logo-preto" src={logoVerticalPreto} alt="" aria-hidden="true" />
-        <p>Criado por Bira Ribeiro · Via.dev.br</p>
+        <CreditoVia />
       </footer>
     </div>
   );
